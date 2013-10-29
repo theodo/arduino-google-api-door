@@ -1,0 +1,11 @@
+exports.OPEN_MESSAGE = 'AWESOME_PRIVATE_KEY';
+
+exports.DOOR_IP      = '127.0.0.1';
+exports.DOOR_PORT    = 9999;
+
+exports.GOOGLE_API_TOKEN_URL = "https://accounts.google.com/o/oauth2/token";
+exports.GOOGLE_API_USERINFO_URL = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
+exports.APP_ID = "";
+exports.APP_SECRET = "";
+exports.HOST = "http://localhost:3000";
+exports.ALLOMATCH_DOOR_URL = "";
