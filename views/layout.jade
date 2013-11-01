@@ -1,7 +1,11 @@
 doctype 5
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+
+        script(src='//code.jquery.com/jquery-2.0.3.min.js')
+        script window.jQuery || document.write('<script src="javascripts/jquery-2.0.3.min.js"><\\/script>')
+    body
+        block content
