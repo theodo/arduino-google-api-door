@@ -1,8 +1,39 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html {
+    overflow: auto;
 }
 
-a {
-  color: #00B7FF;
+html, body, .body {
+    height: 100%;
+}
+
+.body {
+    text-align: center;
+}
+
+#openDoor, #googleSigninButton {
+    margin-bottom: 10px;
+}
+
+#status {
+    font-size: 20px;
+}
+
+#openDoor {
+    width:90%;
+    display:inline-block;
+    font-size:55px;
+    padding:10% 0;
+}
+
+#googleSigninButton {
+    width:50%;
+    display:inline-block;
+    font-size:40px;
+    padding:5% 0;
+}
+
+#reinitialize {
+    width:50%;
+    display:inline-block;
+    padding:3% 0;
 }
