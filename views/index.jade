@@ -8,7 +8,7 @@ block content
         #status
 
         a#googleSigninButton.btn.btn-primary(
-            href="https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=profile&redirect_uri=https%3A%2F%2Fdoor2.theodo.fr%2Fapi%2Foauthcallback&response_type=code&client_id=953106116825.apps.googleusercontent.com&access_type=offline&approval_prompt=force"
+            href="https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=profile&redirect_uri=#{config.REDIRECT_URI}&response_type=code&client_id=#{config.APP_ID}&access_type=offline&approval_prompt=force"
         ) Google
 
         div
