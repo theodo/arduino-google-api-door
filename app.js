@@ -24,8 +24,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
+
+/**
+ *  Beginning
+ */
 // Création of Google client
 var oauth2Client = new OAuth2(config.APP_ID, config.APP_SECRET, config.REDIRECT_URI);
+
+// Index action. Juste some buttons with the URL for Google Authentication
 app.get('/', function(req, res) {
     var authUrl = oauth2Client.generateAuthUrl({
         access_type: 'offline',
@@ -37,6 +43,7 @@ app.get('/', function(req, res) {
         authUrl: authUrl
     });
 });
+
 /**
  * Callback function called after oauth authentication
  * We get the code from the user, and get a refresh_token from Google with this code
@@ -53,34 +60,35 @@ app.get('/oauthcallback', function(req, res) {
         res.redirect("/?refresh_token=" + tokens.refresh_token);
     });
 });
+
 /**
- * First param to consider is auth_type (googleoauth)
- * If googleoauth, we get the refresh_token from request, fetch an access_token from google api with refresh_token, and then fetch userinfo with access_token
+ * We get the refresh_token from request, fetch an access_token from google api with refresh_token, and then fetch userinfo with access_token
  * If the domain of user (hd param) is "theodo.fr", we open the door
  *
- * If allomatch, we get username and password from request and hit the API of allomatch in order to grant (or not) the access
  **/
 app.post('/api/opendoor', function(req, res) {
     var refresh_token = req.body.refresh_token;
     oauth2Client.credentials = {
         refresh_token: refresh_token
     };
+
     googleapis.discover('oauth2', 'v1').execute(function(err, client) {
         if (!err) {
             client.oauth2.userinfo.get().withAuthClient(oauth2Client).execute(function(err, results) {
-                if (!"hd" in body) {
+                if (!"hd" in results) {
                     return res.send({
                         status: -1,
                         message: "L'authentification Google Plus a échoué (code 2)"
                     });
-                } else if ("theodo.fr" !== body.hd) {
-                    console.log(body);
+                } else if ("theodo.fr" !== results.hd) {
                     return res.send({
                         status: -1,
                         message: "L'authentification Google Plus a échoué (l'adresse fournie n'appartient pas à Theodo)"
                     });
                 }
+
                 doorClient.open();
+                
                 res.send({
                     status: 0,
                     message: 'Door opened. Welcome !'
@@ -89,6 +97,7 @@ app.post('/api/opendoor', function(req, res) {
         }
     });
 });
+
 require('http').createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
