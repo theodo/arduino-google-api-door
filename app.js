@@ -51,19 +51,13 @@ app.get('/oauthcallback', function(req, res) {
         //TODO : Check that states match
         var code = req.query.code;
 
-        console.log(code);
-         
-        getRefreshTokenFromCode(code, function (e, r, body) {
-                var body = JSON.parse(body);
-
-                console.log(body);
-
-                if (!"refresh_token" in body) {
-                        return res.send("Le processus d'authentification a échoué");        
-                }
+        oauth2Client.getToken(code, function(err, tokens) {
+		  	if (!"refresh_token" in tokens) {
+                return res.send("Le processus d'authentification a échoué");        
+            }
                 
-                res.redirect("/?refresh_token=" + body.refresh_token);
-        });
+            res.redirect("/?refresh_token=" + tokens.refresh_token);
+		});
 });
 
 /**
@@ -121,19 +115,6 @@ app.post('/api/opendoor', function(req, res) {
                 });
         }
 });
-
-function getRefreshTokenFromCode(code, callback)
-{
-        data = {
-                code: code,
-                client_id: config.APP_ID,
-                client_secret: config.APP_SECRET,
-                redirect_uri: config.REDIRECT_URI,
-                grant_type: "authorization_code"
-        };
-
-        request.post(config.GOOGLE_API_TOKEN_URL, {form: data}, callback);
-}
 
 function getAccessTokenFromRefreshToken(refresh_token, callback)
 {
