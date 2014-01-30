@@ -5,6 +5,10 @@ var http = require('http');
 var path = require('path');
 var request = require('request');
 var doorClient = require('./lib/client/doorClient');
+var googleapis = require('googleapis'),
+    OAuth2 = googleapis.auth.OAuth2;
+
+var oauth2Client = new OAuth2(config.APP_ID, config.APP_SECRET, config.REDIRECT_URI);
 
 var app = express();
 
@@ -26,7 +30,15 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', function(req, res){
-  res.render('index', { config: config });
+
+	var authUrl = oauth2Client.generateAuthUrl({
+	  access_type: 'offline',
+	  scope: 'https://www.googleapis.com/auth/userinfo.email',
+	  state: 'profile',
+	  approval_prompt: 'force'
+	});
+  
+  res.render('index', { authUrl: authUrl });
 });
 
 /**
@@ -109,24 +121,6 @@ app.post('/api/opendoor', function(req, res) {
                 });
         }
 });
-
-/* OAUTH RELATED FUNCTIONS */
-function getOAuthURL()
-{
-        var host = encodeURIComponent(config.HOST + "/api/oauthcallback");
-        var scope = encodeURIComponent("https://www.googleapis.com/auth/userinfo.email");
-        var state = "profile";
-
-        return "https://accounts.google.com/o/oauth2/auth?\
-scope=" + scope + "&\
-state=" + state + "&\
-redirect_uri=" + host + "&\
-response_type=code&\
-client_id=" + config.APP_ID + "&\
-access_type=offline&\
-approval_prompt=force";
-}
-
 
 function getRefreshTokenFromCode(code, callback)
 {
