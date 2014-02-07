@@ -1,4 +1,4 @@
-var doorClient = require('./lib/client/doorClient');
+var doorClient = require('./lib/client/door');
 
 doorClient.open();
 
