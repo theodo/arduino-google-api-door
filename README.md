@@ -1,18 +1,27 @@
 Theodo Door
 ===========
 
-This nodejs application opens the Theodo door. How ?
+Combination of arduino, nodejs and oauth to open our front door
 
-Authentication process
-======================
+Behind the door : Arduino
+=========================
 
-1. The main button generates an authentication request via Oauth2 requiring very basic informations (email)
-2. Once authenticated, Google returns a refresh_token
-3. We send back the refresh token to the client in the URL
-4. The client stores this refresh token in his local storage
+A simple arduino, connected to the private network and listening to connections. 
+The code is a lot inspired of https://github.com/bearstech/FlyingDoor/blob/master/FlyingDoor.pde (see also resources in comments)
+We only removed the beeps and set a private message instead of 1 for opening the door
 
-Opening the door
-================
+Control of the door : NodeJS
+============================
 
-1. If the client has a refresh token in his local storage, we send it to the application
+Lightweight client using the *net* module of nodeJS
+
+Authentication : Express app, Google API and Oauth2
+===================================================
+
+The website is generated with awesome [Express framework](http://expressjs.com/) and [Twitter Bootstrap](http://getbootstrap.com/)
+We fetch minimal informations on [Google API with Oauth] https://github.com/google/google-api-nodejs-client/, 
+and if the domain of the user match our domain, we send the private message to the door.
+
+License
+=======
 
