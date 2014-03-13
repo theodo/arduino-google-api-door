@@ -10,12 +10,12 @@ $(document).ready(function() {
     
     if (null !== refresh_token) {
         current_refresh_token = refresh_token;
-        $("#openDoor").removeClass("disabled");
+        $("#openDoor").removeClass("disabled").addClass("btn-success");
     } else {
         refresh_token = getURLParameter("refresh_token");
         if ("null" !== refresh_token) {
             current_refresh_token = refresh_token;
-            $("#openDoor").removeClass("disabled");
+            $("#openDoor").removeClass("disabled").addClass("btn-success");
         }
     }
 });
@@ -49,5 +49,5 @@ $("#reinitialize").on("click", function() {
     current_refresh_token = null;
     // Clear local storage
     localStorage.removeItem('refresh_token');
-    $("#openDoor").addClass("disabled");
+    $("#openDoor").addClass("disabled").removeClass("btn-success");
 });
