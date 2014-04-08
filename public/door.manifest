@@ -1,11 +1,12 @@
 CACHE MANIFEST
  
-# v0.4
+# v0.5
  
 CACHE:
 /
 /stylesheets/bootstrap.min.css
 /stylesheets/style.css
 http://code.jquery.com/jquery-2.0.3.min.js
+https://code.jquery.com/jquery-2.0.3.min.js
 /javascripts/door.js
 /javascripts/jquery-2.0.3.min.js
