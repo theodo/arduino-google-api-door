@@ -63,7 +63,7 @@ app.get('/oauthcallback', function(req, res) {
 
 /**
  * We get the refresh_token from request, fetch an access_token from google api with refresh_token, and then fetch userinfo with access_token
- * If the domain of user (hd param) is "theodo.fr", we open the door
+ * If the domain of user is the configured domain, we open the door
  *
  **/
 app.post('/api/opendoor', function(req, res) {
@@ -80,7 +80,7 @@ app.post('/api/opendoor', function(req, res) {
                 if ((email.indexOf(config.RESTRICT_DOMAIN) + config.RESTRICT_DOMAIN.length) != email.length) {
                     return res.send({
                         status: -1,
-                        message: "Google Plus authentication failed (domain mismatch)"
+                        message: "Google API authentication failed (the domain of your email does not match the required one)"
                     });
                 }
 

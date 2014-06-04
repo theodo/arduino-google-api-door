@@ -32,7 +32,7 @@ Live example
 Want to try it ?
 ================
 
-- In Google Apps, under the APIs & auth > Credentials section, create a new Client ID for web application
+- Go to [Google Developers Console](https://console.developers.google.com/project), create an app, and under the APIs & auth > Credentials section, create a new Client ID for web application
 - Configure the Redirect URIs with http://localhost:3000/oauthcallback and Javascript Origins with http://localhost:3000
 
 ![Google Apps Screenshot](https://raw.github.com/matthieuauger/gh-pages/master/pictures/google-api.png)
