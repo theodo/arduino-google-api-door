@@ -6,3 +6,4 @@ exports.DOOR_PORT    = 9999;
 exports.APP_ID = "";
 exports.APP_SECRET = "";
 exports.REDIRECT_URI = "http://localhost:3000/oauthcallback";
+exports.RESTRICT_DOMAIN = "gmail.com";

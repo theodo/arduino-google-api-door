@@ -55,7 +55,7 @@ app.get('/oauthcallback', function(req, res) {
     var code = req.query.code;
     oauth2Client.getToken(code, function(err, tokens) {
         if (!"refresh_token" in tokens) {
-            return res.send("Le processus d'authentification a échoué");
+            return res.send("Authentication process failed");
         }
         res.redirect("/?refresh_token=" + tokens.refresh_token);
     });
@@ -75,15 +75,12 @@ app.post('/api/opendoor', function(req, res) {
     googleapis.discover('oauth2', 'v1').execute(function(err, client) {
         if (!err) {
             client.oauth2.userinfo.get().withAuthClient(oauth2Client).execute(function(err, results) {
-                if (!"hd" in results) {
+                var email = results.email;
+
+                if ((email.indexOf(config.RESTRICT_DOMAIN) + config.RESTRICT_DOMAIN.length) != email.length) {
                     return res.send({
                         status: -1,
-                        message: "L'authentification Google Plus a échoué (code 2)"
-                    });
-                } else if ("theodo.fr" !== results.hd) {
-                    return res.send({
-                        status: -1,
-                        message: "L'authentification Google Plus a échoué (l'adresse fournie n'appartient pas à Theodo)"
+                        message: "Google Plus authentication failed (domain mismatch)"
                     });
                 }
 
