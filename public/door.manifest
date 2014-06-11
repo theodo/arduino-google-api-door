@@ -1,6 +1,6 @@
 CACHE MANIFEST
  
-# v0.5
+# v0.6
  
 CACHE:
 /
@@ -10,3 +10,6 @@ http://code.jquery.com/jquery-2.0.3.min.js
 https://code.jquery.com/jquery-2.0.3.min.js
 /javascripts/door.js
 /javascripts/jquery-2.0.3.min.js
+
+NETWORK:
+/api/opendoor
