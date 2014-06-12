@@ -75,6 +75,13 @@ app.post('/api/opendoor', function(req, res) {
     googleapis.discover('oauth2', 'v1').execute(function(err, client) {
         if (!err) {
             client.oauth2.userinfo.get().withAuthClient(oauth2Client).execute(function(err, results) {
+                if (err) {
+                    return res.send({
+                        status: -1,
+                        message: err
+                    });
+                }
+                
                 var email = results.email;
 
                 if ((email.indexOf(config.RESTRICT_DOMAIN) + config.RESTRICT_DOMAIN.length) != email.length) {
